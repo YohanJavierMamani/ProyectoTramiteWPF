@@ -1,0 +1,41 @@
+﻿<Window x:Class="ProyectoTramite.Views.CrudWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoTramite.Views"
+        xmlns:vm="clr-namespace:ProyectoTramite.ViewModels"
+        mc:Ignorable="d"
+        Title="CrudWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <vm:EstudianteViewModel x:Key="EstudianteVM"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource EstudianteVM}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListBox ItemsSource="{Binding ListaEstudiante}" SelectedItem="{Binding CurrentEstudiante}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Id}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Nombre}" Foreground="#FF3276C7"/>
+                        <Button Command="{Binding DataContext.VerInfo2Command, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}}"  Grid.Column="2" Content="Ver Info" Background="White"/>
+                        <Button Command="{Binding DataContext.EliminarPersonaCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"  CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Self}}" Grid.Column="3" Content="Eliminar" Background="White"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Grid.Row="1" Text="{Binding ListaEstudiante.Count}" HorizontalAlignment="Stretch"/>
+        <Button Command="{Binding ListarEstudiantesCommand}" Grid.Row="1" Content="Cargar" HorizontalAlignment="Right"/>
+        <Button Command="{Binding VerInfoCommand}" Grid.Row="1" Content="Detalle" HorizontalAlignment="Right" Margin="0 0 40 0" Cursor="Hand"/>
+    </Grid>
+</Window>
