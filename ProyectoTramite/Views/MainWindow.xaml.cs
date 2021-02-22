@@ -35,9 +35,6 @@ namespace ProyectoTramite
         {
             base.OnApplyTemplate();
             ViewModel = new MainPageViewModel();
-            //await ViewModel.LoadCharacters();
-            //Amiibos = ViewModel.Amiibos;
-            //this.DataContext = this;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
